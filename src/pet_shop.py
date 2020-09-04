@@ -30,10 +30,11 @@ def get_pets_by_breed(shop, breed):
     return pets_list
 
 def find_pet_by_name(shop, name):
-    pet_name = ""
+    pet_name = None
     for pet in shop["pets"]:
         if pet["name"] == name:
             pet_name = pet
         elif pet["name"] != name: 
-            pet_name = 0
+            pass
     return pet_name
+
