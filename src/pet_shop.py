@@ -30,11 +30,21 @@ def get_pets_by_breed(shop, breed):
     return pets_list
 
 def find_pet_by_name(shop, name):
-    pet_name = None
+    return_pet = None
+
     for pet in shop["pets"]:
         if pet["name"] == name:
-            pet_name = pet
-        elif pet["name"] != name: 
-            pass
-    return pet_name
+            return_pet = pet
 
+    return return_pet
+
+def remove_pet_by_name(shop, name):
+    index = 0
+    for pet in shop["pets"]:
+        if pet["name"] != name:
+            index += 1
+        elif pet["name"] == name:
+            del(shop["pets"][index])
+            return
+        
+        
