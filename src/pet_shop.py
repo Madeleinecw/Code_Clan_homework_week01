@@ -25,8 +25,7 @@ def get_pets_by_breed(shop, breed):
     for pet in shop["pets"]:
         if pet["breed"] == breed:
             pets_list.append(pet)
-        elif pet["breed"] != breed:
-            pass
+
     return pets_list
 
 def find_pet_by_name(shop, name):
@@ -39,13 +38,7 @@ def find_pet_by_name(shop, name):
     return return_pet
 
 def remove_pet_by_name(shop, name):
-    index = 0
-    for pet in shop["pets"]:
-        if pet["name"] != name:
-            index += 1
-        elif pet["name"] == name:
-            del(shop["pets"][index])
-            return
+    shop["pets"].remove(find_pet_by_name(shop, name))
         
 def add_pet_to_stock(shop,new_pet):
     shop["pets"].append(new_pet)
@@ -70,12 +63,11 @@ def customer_can_afford_pet(customer, pet):
         return False
     
 def sell_pet_to_customer(shop, pet, customer):
-    if not pet:
+    if not pet or not customer_can_afford_pet(customer, pet):
         return
-    if customer_can_afford_pet(customer, pet):
-        remove_customer_cash(customer, pet["price"])
-        add_pet_to_customer(customer, pet)
-        add_or_remove_cash(shop, pet["price"])  
-        increase_pets_sold(shop, 1)
-    else:
-        return
+        
+    remove_customer_cash(customer, pet["price"])
+    add_pet_to_customer(customer, pet)
+    add_or_remove_cash(shop, pet["price"])  
+    increase_pets_sold(shop, 1)
+    
